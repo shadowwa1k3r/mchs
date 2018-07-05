@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Справочник</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+   <script type="text/javascript" src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+  <script type="text/javascript">
+  tinymce.init({
+    selector: '#content',
+    theme: 'modern',
+    width: '100%',
+    height: 300,
+    plugins: [
+      'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+      'save table contextmenu directionality emoticons template paste textcolor'
+    ],
+    content_css: 'css/content.css',
+    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons'
+  });
+  </script>
+
+
+</head>
+<body>
+<div style="background-color:DodgerBLue;margin-top:0;" class="page-header panel">
+<img style="float:left;margin-left:10px"alt="" src="https://fvv.uz/assets/public/images/logo.png">
+<h1 style="color:white;text-align:center;margin:0;padding-top:30px;padding-bottom:30px;">Министерство по чрезвычайным ситуациям Республики Узбекистан</h1>
+</div>
+    <div class="container">
+
+        <h1 style="text-align:center;font-size:x-large">Новая запись</h1>
+
+        <form class="form-group" action="/admin/infoEdit" th:action="@{/admin/infoEdit}" method="post">
+            <input th:type="hidden" name="id" th:field="${info.id}" />
+            <div class="form-group">
+                <label for="title">Заголовок</label>
+                <input type="text" class="form-control" id="title" th:field="${info.title}" />
+            </div>
+           
+            <div class="form-group">
+                <label for="content">Содержание</label>
+                <textarea rows="25"  class="form-control" id="content" th:field="${info.content}"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="#" th:href="@{/admin/helplist}" class="btn btn-danger" role="button">Отмена</a>
+        </form>
+         <!-- <form class = "form-group" action="/admin/uploadpic"  method="post" enctype="multipart/form-data">
+            <div class="form-group">
+            	<label for="picture">Картинка</label>
+            	<input type="file" name="picture" id="picture" accept="image/*"/> <br/>
+            	<input type="submit" class="btn btn-primary" value="Загрузить"/>            
+            </div>
+            </form> -->
+        
+
+            
+
+    </div>
+
+</body>
+</html>

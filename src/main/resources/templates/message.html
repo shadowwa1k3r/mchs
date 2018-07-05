@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Сообщения</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/html5gallery/jquery.js}" src="js/html5gallery/jquery.js"></script>
+	<script type="text/javascript" th:src="@{/js/html5gallery/html5gallery.js}" src="js/html5gallery/html5gallery.js"></script>
+    
+    <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=en_US"></script>   
+    <script th:inline="javascript" type="text/javascript">
+	    ymaps.ready(init);
+	    var myMap, myPlacemark;
+	    /*<![CDATA[*/
+	    
+        var longitude= /*[[${message.longitude}]]*/ '2.00002';
+	    var latitude=/*[[${message.altitude}]]*/ '2.00002';
+	    var sender = /*[[${message.sender}]]*/ 'sender';
+	    var title = /*[[${message.title}]]*/'title';
+
+      /*]]>*/
+
+	
+	    function init(){     
+	        myMap = new ymaps.Map("map", {
+	            center: [latitude,longitude],
+	            zoom: 13
+	        });
+	        myPlacemark = new ymaps.Placemark([latitude,longitude],{hintContent:sender,balloonContent:title});
+	        myMap.geoObjects.add(myPlacemark);
+	    }
+	</script>
+    
+</head>
+<body >
+<div style="background-color:DodgerBLue;margin-top:0;" class="page-header panel">
+<img style="float:left;margin-left:10px"alt="" src="https://fvv.uz/assets/public/images/logo.png">
+<h1 style="color:white;text-align:center;margin:0;padding-top:30px;padding-bottom:30px;">Министерство по чрезвычайным ситуациям Республики Узбекистан</h1>
+</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" >МЧС</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li ><a href="/admin">Главная</a></li>
+      <li><a href="/admin/userlist">Пользователи</a></li>
+      <li class="active"><a href="/admin/alertlist">Сообщения</a></li>
+      <li><a href="/admin/helplist">Справочник</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Администратор</a></li>
+      <li><a href="/admin/logout"><span class="glyphicon glyphicon-log-in"></span> Выход</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <div class="container">
+
+        <h1>Сообщения</h1>
+        <div class="row">
+        <div class="col-sm-6">       
+        <table class="table table-striped table-hover table-bordered">
+        	<tr>
+        		<td><p><strong>Отправитель: </strong></p><p th:text="${message.sender}" ></p></td>
+        	</tr>
+        	<tr>
+        		<td><p><strong>Заголовок: </strong></p><p th:text="${message.title}" ></p></td>
+        	</tr>
+        	<tr>
+        		<td><p><strong>Содержание: </strong></p><p th:text="${message.body}" ></p></td>
+        	</tr>
+        	<tr>
+        		<td><p><strong>Местоположение: </strong></p><p th:text="${message.longitude} " ></p><p th:text="${message.altitude}"></p></td>
+        	</tr>
+        	<tr>
+        		<td><p><strong>Дата отправки: </strong></p><p th:text="${message.date}" ></p></td>
+        	</tr>
+		</table>
+		</div>
+		<div class="col-sm-6" id="map" style="width: 500px; height: 400px; "></div>
+		</div>
+		<div class="html5gallery" data-skin="gallery" data-width="480" data-height="272" th:each="file: ${message.imgs}">
+			<a href="" th:href="${file}"></a>/a><img alt="media" th:src="@{file}">
+		</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
+
+</head>
+<body>
+<div style="background-color:DodgerBLue;margin-top:0;" class="page-header panel">
+<img style="float:left;margin-left:10px"alt="" src="https://fvv.uz/assets/public/images/logo.png">
+<h1 style="color:white;text-align:center;margin:0;padding-top:30px;padding-bottom:30px;">Министерство по чрезвычайным ситуациям Республики Узбекистан</h1>
+</div>
+
+  <div class="container-fluid">
+   
+     <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Администратор</a></li>
+      <li><a href="/admin/logout"><span class="glyphicon glyphicon-log-in"></span> Выход</a></li>
+    </ul>
+  </div>
+
+ <div class="container-fluid">
+
+        <h1 style="text-align:center;font-size:x-large">Административный панель мобильного приложения</h1> 
+        
+        <div  class="list-group" style="margin-top:20px">
+        	<a href="/admin/userlist" th:href="@{/admin/userlist}" class="list-group-item"	style="font-size:larger">Пользователи</a>
+        	<a href="/admin/alertlist" th:href="@{/admin/alertlist}" class="list-group-item"style="font-size:larger">Сообщение<span th:text="${msgcount}" class="badge">5</span></a>
+        	<a href="/admin/helplist" th:href="@{/admin/helplist}" class="list-group-item"style="font-size:larger">Справочник</a>
+        </div>
+         
+    </div>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+</body>
+</html>

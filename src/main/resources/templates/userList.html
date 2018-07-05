@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Пользователи</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div style="background-color:DodgerBLue;margin-top:0;" class="page-header panel">
+<img style="float:left;margin-left:10px"alt="" src="https://fvv.uz/assets/public/images/logo.png">
+<h1 style="color:white;text-align:center;margin:0;padding-top:30px;padding-bottom:30px;">Министерство по чрезвычайным ситуациям Республики Узбекистан</h1>
+</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" >МЧС</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li ><a href="/admin">Главная</a></li>
+      <li class="active"><a href="/admin/userlist">Пользователи</a></li>
+      <li ><a href="/admin/alertlist">Сообщения</a></li>
+      <li><a href="/admin/helplist">Справочник</a></li>
+    </ul>
+     <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Администратор</a></li>
+      <li><a href="/admin/logout"><span class="glyphicon glyphicon-log-in"></span> Выход</a></li>
+    </ul>
+  </div>
+</nav>
+    <div class="container">
+
+        <h1 style="text-align:center;font-size:x-large">Пользователи</h1>
+
+        <!--  <p>
+            <a href="/notesEdit" th:href="@{/notesEdit}">Create</a>
+        </p>-->
+
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>ConfirmCode</th>
+                    <th>Enabled</th>
+                    <th>Not Locked</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  th:each="userList: ${users}">
+                    <td th:text="${userList.username}">1</td>
+                    <td th:text="${userList.password}">Test</td>
+                    <td th:text="${userList.temp_code}">Test</td>
+                    <td th:text="${userList.enabled}">Test</td>
+                    <td th:text="${userList.notLocked}">Test</td>
+                    <!-- <td>
+                        <a href="/notesEdit/1" th:href="@{/notesEdit/__${notes.id}__}">Edit</a>
+                        <a href="/notesDelete/1" th:href="@{/notesDelete/__${notes.id}__}">Delete</a>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
