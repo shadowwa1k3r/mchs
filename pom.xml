@@ -7,7 +7,7 @@
 	<groupId>osg.loki</groupId>
 	<artifactId>simple_auth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>simple_auth</name>
 	<description>Demo project for Spring Boot</description>
