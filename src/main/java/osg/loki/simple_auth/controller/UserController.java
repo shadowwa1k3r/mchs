@@ -79,12 +79,13 @@ public class UserController {
 			try{
 				byte[] bytes = file.get(i).getBytes();
 				Path path = Paths.get(UPLOADED_FOLDER+file.get(i).getOriginalFilename());
-				filelist.add(path.toString());
+				
 				Files.write(path, bytes);
+				filelist.add(path.toString());
+				
 			}
 			catch(IOException e) {
-				//log.error(e.getMessage());
-				
+				e.printStackTrace();				
 			}}
 		userRepository.saveMessage(data,header,filelist);
 		
