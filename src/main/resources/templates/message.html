@@ -9,8 +9,14 @@
 
     <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="js/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/html5gallery/jquery.js}" src="js/html5gallery/jquery.js"></script>
-	<script type="text/javascript" th:src="@{/js/html5gallery/html5gallery.js}" src="js/html5gallery/html5gallery.js"></script>
+    <!-- <script type="text/javascript" th:src="@{/js/html5gallery/jquery.js}" src="js/html5gallery/jquery.js"></script>
+	<script type="text/javascript" th:src="@{/js/html5gallery/html5gallery.js}" src="js/html5gallery/html5gallery.js"></script> -->
+    
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    
     
     <script type="text/javascript" src="https://api-maps.yandex.ru/2.1/?lang=en_US"></script>   
     <script th:inline="javascript" type="text/javascript">
@@ -45,7 +51,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" >МЧС</a>
+      <p class="navbar-brand" >МЧС</p>
     </div>
     <ul class="nav navbar-nav">
       <li ><a href="/admin">Главная</a></li>
@@ -85,9 +91,14 @@
 		</div>
 		<div class="col-sm-6" id="map" style="width: 500px; height: 400px; "></div>
 		</div>
-		<div class="html5gallery" data-skin="gallery" data-width="480" data-height="272" th:each="file: ${message.imgs}">
-			<a href="" th:href="${file}"></a>/a><img alt="media" th:src="@{file}">
+		<div class="col-sm-4"  th:each="file: ${message.imgs}">
+			<a data-fancybox="images" href="" th:href="${file}"><img style="width:360px; height:236px; margin-bottom:10px" th:src="${file}"></a>
 		</div>
+		
+		
+		<!-- <div class="html5gallery col-sm-6" data-skin="gallery" data-width="480" data-height="272" th:each="file: ${message.imgs}">
+			<a href="" th:href="${file}"></a><img alt="" th:src="${file}">
+		</div> -->
     </div>
 </body>
 </html>

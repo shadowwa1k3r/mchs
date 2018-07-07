@@ -35,7 +35,7 @@ import osg.loki.simple_auth.security.TokenAuthenticationService;
 @RestController
 public class UserController {
 	@Autowired UserRepository userRepository;
-	private static String UPLOADED_FOLDER = "/app/src/main/resources/static/img/";
+	private static String UPLOADED_FOLDER = "C:\\Users\\ergas\\Desktop\\simple_auth\\src\\main\\resources\\static\\img\\";
 	@RequestMapping("/hello")
 	public String hello(@RequestHeader HttpHeaders headers) {
 		
@@ -81,7 +81,7 @@ public class UserController {
 				Path path = Paths.get(UPLOADED_FOLDER+file.get(i).getOriginalFilename());
 				
 				Files.write(path, bytes);
-				filelist.add(path.toString());
+				filelist.add("http://192.168.1.112:8081/img/"+file.get(i).getOriginalFilename());
 				
 			}
 			catch(IOException e) {
