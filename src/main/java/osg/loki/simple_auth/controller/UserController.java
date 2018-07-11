@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +37,8 @@ import osg.loki.simple_auth.security.TokenAuthenticationService;
 public class UserController {
 	@Autowired UserRepository userRepository;
 	private static String UPLOADED_FOLDER = "C:\\Users\\ergas\\Desktop\\simple_auth\\src\\main\\resources\\static\\img\\";
-	@RequestMapping("/hello")
+	//private  String UPLOAD_FODER2=String.valueOf(this.getClass().getResource("/img"));
+	/*@RequestMapping("/hello")
 	public String hello(@RequestHeader HttpHeaders headers) {
 		
 		return "Hello "+headers.toString();
@@ -47,7 +49,7 @@ public class UserController {
 		return "{\"users\":[{\"firstname\":\"Richard\", \"lastname\":\"Feynman\"}," +
 		           "{\"firstname\":\"Marie\",\"lastname\":\"Curie\"}]}";
 
-	}
+	}*/
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value="/auth/signup",method=RequestMethod.POST)
 	public ResponseEntity signup(@RequestBody UserRegisterModel user ) {
@@ -71,17 +73,22 @@ public class UserController {
 	}
 	@RequestMapping(value = "/api/alert",method = RequestMethod.POST)
 	public String newAlert(@RequestHeader("Authorization")String header,@RequestPart("data") AlertDataModel data, @RequestParam("file")List<MultipartFile> file) {
-		
+		String UPLOAD_FOLDER="";
+		try {
+			UPLOAD_FOLDER=ResourceUtils.getURL("classpath:static/img/").toString().replaceAll("file:/", "");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		System.out.println(header);
 		List<String> filelist = new ArrayList<>();
 		for(int i=0;i<file.size();i++) {
 			System.out.println(file.get(i).getContentType()+" "+file.get(i).getOriginalFilename()+file.get(i).getSize());
 			try{
 				byte[] bytes = file.get(i).getBytes();
-				Path path = Paths.get(UPLOADED_FOLDER+file.get(i).getOriginalFilename());
+				Path path = Paths.get(UPLOAD_FOLDER+file.get(i).getOriginalFilename());
 				
 				Files.write(path, bytes);
-				filelist.add("http://192.168.1.112:8081/img/"+file.get(i).getOriginalFilename());
+				filelist.add("http://192.168.1.104:8081/img/"+file.get(i).getOriginalFilename());
 				
 			}
 			catch(IOException e) {
@@ -94,7 +101,7 @@ public class UserController {
 		return "{\"answer\":\"ok\"}";		
 		
 	}
-	@GetMapping ("/api/send")
+	/*@GetMapping ("/api/send")
 	public String test() {
 		//System.out.println(header+" "+body);
 		return "{\\\"answer\\\":\\\"ok\\\"}";
@@ -103,7 +110,7 @@ public class UserController {
 	public ResponseEntity uploadpic(@RequestParam("picture")MultipartFile file) {
 		System.out.println(file.getSize());
 		return new ResponseEntity("accepted",HttpStatus.ACCEPTED);
-	}
+	}*/
 	
 
 }

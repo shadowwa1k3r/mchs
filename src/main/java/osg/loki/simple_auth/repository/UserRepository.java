@@ -43,7 +43,7 @@ public class UserRepository {
 		String sql = "insert into mchs_users values(nextval('mchs_users_id_seq'),'false','true','"+username+"','"+encoder.encode(password)+"',"+confirmCode+")";
 		try {
 			jdbcTemplate.execute(sql);
-			SendHttpRequestForSms.SendSms(confirmCode, username);
+			SendHttpRequestForSms.sendSms(confirmCode, username);
 			return confirmCode;
 		} catch(Exception e) {
 			log.error(e.getMessage());

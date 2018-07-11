@@ -3,6 +3,7 @@ package osg.loki.simple_auth.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +29,18 @@ public class AdminController {
 	public String dashboard(Model model) {
 		//model.addAttribute("users", userRepository.userList());
 		model.addAttribute("msgcount", userRepository.newMessageCount());
+		try {
+			String path=ResourceUtils.getURL("classpath:static/img/").toString();
+			System.out.println(path);
+			System.out.println(path.replaceAll("file:/", ""));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "DashBoard";
 	}
 	@RequestMapping(value="/admin/alertlist",method=RequestMethod.GET)
 	public String alertList(Model model) {
-		model.addAttribute("messagesList", userRepository.messageList());
-		
+		model.addAttribute("messagesList", userRepository.messageList());		
 		return "alertList";
 	}
 	@RequestMapping(value = "/admin/alertlist/{message_id}",method=RequestMethod.GET)
@@ -55,7 +62,6 @@ public class AdminController {
 	@RequestMapping(value="/admin/helplist/{id}")
 	public String showinfo(Model model,@PathVariable Integer id) {	
 		model.addAttribute("info", userRepository.getWikiInfo(id));
-
 		return "wikishow";
 	}
 	
