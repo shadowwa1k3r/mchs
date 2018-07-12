@@ -1,5 +1,7 @@
 package osg.loki.simple_auth.model;
 
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +13,16 @@ public class AlertDataDBModel {
 	private String date;
 	private List<String> files=new ArrayList<String>();
 	
+	public String getIp() {
+		String ip="";
+		try (final DatagramSocket socket = new DatagramSocket()){
+			socket.connect(InetAddress.getByName("8.8.8.8"),10002);
+			ip=socket.getLocalAddress().getHostAddress();
+		} catch (Exception e) {
+		
+		}
+		return ip;
+	}
 	public List<String> getImgs() {
 		return files;
 	}
@@ -19,7 +31,7 @@ public class AlertDataDBModel {
 		if(imgs.length()>0) {
 		String[] media = imgs.split(";");
 		for(int i=0;i<media.length;i++) {
-			files.add(media[i]);
+			files.add("http://"+getIp()+":8081"+media[i]);
 		}
 		}
 	}

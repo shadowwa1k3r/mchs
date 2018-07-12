@@ -1,5 +1,6 @@
 package osg.loki.simple_auth.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,7 +37,7 @@ import osg.loki.simple_auth.security.TokenAuthenticationService;
 @RestController
 public class UserController {
 	@Autowired UserRepository userRepository;
-	private static String UPLOADED_FOLDER = "C:\\Users\\ergas\\Desktop\\simple_auth\\src\\main\\resources\\static\\img\\";
+	private static String UPLOADED_FOLDER = "C:\\servImage\\";
 	//private  String UPLOAD_FODER2=String.valueOf(this.getClass().getResource("/img"));
 	/*@RequestMapping("/hello")
 	public String hello(@RequestHeader HttpHeaders headers) {
@@ -73,22 +74,18 @@ public class UserController {
 	}
 	@RequestMapping(value = "/api/alert",method = RequestMethod.POST)
 	public String newAlert(@RequestHeader("Authorization")String header,@RequestPart("data") AlertDataModel data, @RequestParam("file")List<MultipartFile> file) {
-		String UPLOAD_FOLDER="";
-		try {
-			UPLOAD_FOLDER=ResourceUtils.getURL("classpath:static/img/").toString().replaceAll("file:/", "");
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		
 		System.out.println(header);
 		List<String> filelist = new ArrayList<>();
 		for(int i=0;i<file.size();i++) {
 			System.out.println(file.get(i).getContentType()+" "+file.get(i).getOriginalFilename()+file.get(i).getSize());
 			try{
 				byte[] bytes = file.get(i).getBytes();
-				Path path = Paths.get(UPLOAD_FOLDER+file.get(i).getOriginalFilename());
+				Path path = Paths.get(UPLOADED_FOLDER+file.get(i).getOriginalFilename());
+				System.out.println(new File(UPLOADED_FOLDER).mkdir());
 				
 				Files.write(path, bytes);
-				filelist.add("http://192.168.1.104:8081/img/"+file.get(i).getOriginalFilename());
+				filelist.add("/files/"+file.get(i).getOriginalFilename());
 				
 			}
 			catch(IOException e) {
