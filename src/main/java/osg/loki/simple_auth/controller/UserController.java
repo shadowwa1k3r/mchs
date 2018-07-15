@@ -57,6 +57,7 @@ public class UserController {
 		String confirmCode=userRepository.saveUser(user.getUsername(), user.getPassword());
 		System.out.println(confirmCode);
 		
+		
 		if(confirmCode.equals("exist")) return new ResponseEntity("user exist",HttpStatus.NOT_ACCEPTABLE);
 		return new ResponseEntity("error",HttpStatus.CREATED);
 	}
@@ -82,6 +83,7 @@ public class UserController {
 			try{
 				byte[] bytes = file.get(i).getBytes();
 				Path path = Paths.get(UPLOADED_FOLDER+file.get(i).getOriginalFilename());
+				
 				System.out.println(new File(UPLOADED_FOLDER).mkdir());
 				
 				Files.write(path, bytes);

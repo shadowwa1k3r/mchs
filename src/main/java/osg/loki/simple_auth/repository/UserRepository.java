@@ -95,6 +95,26 @@ public class UserRepository {
 		return messages;
 		
 	}
+	public List<AlertDataDBModel>  getMessagesByDate(String date) {
+		String sql="select * from mchs_alert_messages where date='"+date+"'";
+		List<AlertDataDBModel> messages = new ArrayList<>();
+		List<Map<String,Object>> rows = jdbcTemplate.queryForList(sql);
+		
+		for(Map<String,Object> row:rows) {
+			AlertDataDBModel message = new AlertDataDBModel();
+			message.setId((Integer)row.get("id"));
+			message.setTitle((String)row.get("title"));
+			message.setBody((String)row.get("body"));
+			message.setSender((String)row.get("sender"));
+			message.setAltitude(Double.parseDouble((String) row.get("altitude")));
+			message.setLongitude(Double.parseDouble((String) row.get("longitude")));
+			message.setDate((String)row.get("date"));
+			message.setStatus((String)row.get("status"));
+			messages.add(message);
+		}
+		
+		return messages;
+	}
 	public AlertDataDBModel getMessage(int id) {
 		String sql = "select * from mchs_alert_messages where id="+id;
 		Map<String,Object> row = jdbcTemplate.queryForMap(sql);
